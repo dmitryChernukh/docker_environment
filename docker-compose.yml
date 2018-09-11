@@ -21,7 +21,7 @@ services:
             - "8006:3306"
 
     nginx:
-        image: alexdanilenko/docker_nginx
+        build: docker/nginx
         container_name: nginx
         environment:
             ENVIRONMENT: dev
