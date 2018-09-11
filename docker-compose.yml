@@ -1,0 +1,53 @@
+version: "2"
+
+volumes:
+    mysql:
+        driver: "local"
+    phpmyadmin:
+        driver: "local"
+
+services:
+    mysql:
+        image: 'mysql:8.0.12'
+        environment:
+            MYSQL_DATABASE: mysql_database
+            MYSQL_USER: mysql_database
+            MYSQL_PASSWORD: mysql_database
+            MYSQL_ROOT_PASSWORD: root
+        container_name: mysql
+        volumes:
+            - ./docker/mysql/conf:/etc/mysql/conf.d
+        ports:
+            - "8006:3306"
+
+    nginx:
+        image: alexdanilenko/docker_nginx
+        container_name: nginx
+        environment:
+            ENVIRONMENT: dev
+            XDEBUG_CONFIG: "remote_host=172.17.0.1"
+            PHP_IDE_CONFIG: "serverName=nginx"
+        volumes:
+            - ./:/var/www/html
+            - ./docker/nginx/vhost:/etc/nginx/sites-available
+        ports:
+            - "8888:80"
+        depends_on:
+            - mysql
+        links:
+            - mysql
+
+    phpmyadmin:
+        image: 'phpmyadmin/phpmyadmin:latest'
+        container_name: phpmyadmin
+        environment:
+            PMA_ARBITRARY: 1
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: admin
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - /sessions
+        ports:
+            - "8080:80"
+        links:
+            - "mysql:db"
