@@ -1,3 +1,25 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+register:
+    path: /register
+    controller: AppBundle\Controller\AuthController::register
+    methods: [POST, GET]
+
+li_tasks:
+    type: annotation
+    prefix: /api/
+    resource: AppBundle\Controller\TaskController
+
+login_check:
+    path:     /login_check
+    methods:  [POST]
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+app.swagger_ui:
+    path: /api/doc
+    methods: GET
+    defaults: { _controller: nelmio_api_doc.controller.swagger_ui }
