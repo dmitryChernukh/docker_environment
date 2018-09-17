@@ -16,6 +16,11 @@ Add role: ```docker exec -ti nginx php bin/console fos:user:promote user ROLE_RE
 
 Receive token: http://localhost:8888/login_check
 
+Example:
+```bash
+curl -X POST http://127.0.0.1:8888/login_check -d _username=test -d _password=test
+```
+
 You will receive token in this format:
 
 ```json
