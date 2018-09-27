@@ -44,3 +44,21 @@ Postman-Token: 18499af8-91a6-97c4-2866-87cb584bdaf1
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 ```
 
+_______________TESTS
+
+Run command ```docker exec -ti nginx php bin/console fos:user:create test test@example.com test```  in order to create test user.
+
+Run tests: ``docker exec -ti nginx ./vendor/bin/simple-phpunit tests/AppBundle/Controller/TaskControllerTest.php``
+
+```bash
+PHPUnit 6.5.13 by Sebastian Bergmann and contributors.
+
+Testing Tests\AppBundle\Controller\TaskControllerTest
+....                                                                4 / 4 (100%)
+
+Time: 2.86 seconds, Memory: 30.00MB
+
+OK (4 tests, 22 assertions)
+```
+
+In current test we use HTTP_Authorization with jwt-authentication token. 
