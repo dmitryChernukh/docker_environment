@@ -44,7 +44,7 @@ Postman-Token: 18499af8-91a6-97c4-2866-87cb584bdaf1
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 ```
 
-_______________TESTS
+## _______________TESTS
 
 Run command ```docker exec -ti nginx php bin/console fos:user:create test test@example.com test```  in order to create test user.
 
