@@ -29,12 +29,18 @@ RUN apt-get install -y \
         -qq npm \
     --no-install-recommends
 
+RUN apt-get update && \
+    apt-get install -y \
+        zlib1g-dev
+
 ENV TZ=Europe/Kiev
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get install -y \
         php \
         php-dev \
+        php-zip \
+        php-mbstring \
         php-fpm \
         php-mysql \
         php-apcu \

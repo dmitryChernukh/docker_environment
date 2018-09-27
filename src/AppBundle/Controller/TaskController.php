@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Task;
+use AppBundle\Entity\User;
 use AppBundle\Form\TaskType;
 use AppBundle\Repository\TaskRepository;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -77,6 +78,13 @@ class TaskController extends FOSRestController
      */
     public function updateTaskAction(Request $request, Task $task)
     {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if($user->getId() !== $task->getUser()->getId()) {
+            throw $this->createAccessDeniedException('You can\'t update this task!');
+        }
+
         $managerRegistry = $this->getDoctrine();
         /** @var TaskRepository $repo */
         $repo = $managerRegistry->getRepository(Task::class);
@@ -108,6 +116,13 @@ class TaskController extends FOSRestController
     {
         if (!$task) {
             throw $this->createNotFoundException('No task found with current ID');
+        }
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if($user->getId() !== $task->getUser()->getId()) {
+            throw $this->createAccessDeniedException('You can\'t delete this task!');
         }
 
         $managerRegistry = $this->getDoctrine();

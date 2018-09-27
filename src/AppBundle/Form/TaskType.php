@@ -17,9 +17,6 @@ class TaskType extends AbstractType
         $builder
             ->add('content', TextType::class)
             ->add('completed', TextType::class)
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-            ])
         ;
     }
 

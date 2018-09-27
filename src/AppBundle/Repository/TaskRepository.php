@@ -62,4 +62,19 @@ class TaskRepository extends EntityRepository
             ->getQuery()
             ->execute();
     }
+
+    /**
+     * @return mixed
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getLastInsertedTaskId()
+    {
+        return $this->createQueryBuilder('q')
+            ->select('q.id')
+            ->orderBy('q.id', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
